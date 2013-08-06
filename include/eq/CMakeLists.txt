@@ -22,5 +22,5 @@
 ########################################################################
 install(FILES
     api.h
-    DESTINATION include/eq
+    eq_lms_ff.h DESTINATION include/eq
 )

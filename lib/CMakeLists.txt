@@ -26,6 +26,7 @@ include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
 
 list(APPEND eq_sources
+    eq_lms_ff_impl.cc
 )
 
 add_library(gnuradio-eq SHARED ${eq_sources})
