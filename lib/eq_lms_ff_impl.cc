@@ -42,8 +42,9 @@ namespace gr {
       : gr_block("eq_lms_ff",
                  gr_make_io_signature(2, 2, sizeof(float)),
                  gr_make_io_signature(1, 1, sizeof(float))),
-        d_filter_size(filter_size), d_step_factor(step_factor)
-    {}
+        d_filter_size(filter_size), d_step_factor(step_factor), d_filter_taps(filter_size, 0)
+    {
+    }
 
     /*
      * Our virtual destructor.

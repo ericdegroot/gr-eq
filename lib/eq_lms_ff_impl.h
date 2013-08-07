@@ -31,6 +31,7 @@ namespace gr {
     private:
       unsigned int d_filter_size;
       float d_step_factor;
+      std::vector<float> d_filter_taps;
 
     public:
       eq_lms_ff_impl(unsigned int filter_size, float step_factor);
