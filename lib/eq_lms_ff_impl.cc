@@ -43,7 +43,7 @@ namespace gr {
     eq_lms_ff_impl::eq_lms_ff_impl(unsigned int filter_size, float step_factor)
       : gr_sync_block("eq_lms_ff",
                       gr_make_io_signature(2, 2, sizeof(float)),
-                      gr_make_io_signature(1, 1, sizeof(float))),
+                      gr_make_io_signature(1, 2, sizeof(float))),
         d_filter_size(filter_size), d_step_factor(step_factor), d_filter_taps(filter_size, 0)
     {
       set_history(filter_size);
@@ -64,11 +64,11 @@ namespace gr {
       const float *x = (const float *) input_items[0];
       const float *dn = (const float *) input_items[1];
       float *y = (float *) output_items[0];
+      float *e = (float *) output_items[1];
 
       // fprintf(stderr, "work: noutput_items=%d, d_filter_size=%d, d_step_factor=%f\n", noutput_items, d_filter_size, d_step_factor);
       // fprintf(stderr, "x[0]=%f, x[d_filter_size-1]=%f, x[noutput_items-1]=%f, x[(d_filter_size-1)+noutput_items-1]=%f\n", x[0], x[d_filter_size-1], x[noutput_items - 1], x[(d_filter_size - 1) + noutput_items - 1]);
 
-      float e;
       for (int i = 0; i < noutput_items; i++) {
         /*
         for (int j = 0; j < d_filter_size; j++) {
@@ -88,12 +88,12 @@ namespace gr {
           y[i] += d_filter_taps[j] * x[d_filter_size - (j + 1) + i];
         }
 
-        e = dn[i + (d_filter_size - 1)] - y[i];
+        e[i] = dn[i + (d_filter_size - 1)] - y[i];
         // fprintf(stderr, "n=%d, dn(n)=%f, y(n)=%f, e(n)=%f\n", i, dn[i + (d_filter_size - 1)], y[i], e);
 
         for (int j = 0; j < d_filter_size; j++) {
           // fprintf(stderr, "\tj=%d, d_filter_taps[j]=%f\n", j, d_filter_taps[j]);
-          d_filter_taps[j] += 2 * d_step_factor * e * x[d_filter_size - (j + 1) + i];
+          d_filter_taps[j] += 2 * d_step_factor * e[i] * x[d_filter_size - (j + 1) + i];
         }
       }
 

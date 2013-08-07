@@ -27,4 +27,8 @@
     <name>y</name>
     <type>float</type>
   </source>
+  <source>
+    <name>e</name>
+    <type>float</type>
+  </source>
 </block>
