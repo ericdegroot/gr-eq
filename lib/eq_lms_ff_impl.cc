@@ -39,11 +39,12 @@ namespace gr {
      * The private constructor
      */
     eq_lms_ff_impl::eq_lms_ff_impl(unsigned int filter_size, float step_factor)
-      : gr_block("eq_lms_ff",
-                 gr_make_io_signature(2, 2, sizeof(float)),
-                 gr_make_io_signature(1, 1, sizeof(float))),
+      : gr_sync_block("eq_lms_ff",
+                      gr_make_io_signature(2, 2, sizeof(float)),
+                      gr_make_io_signature(1, 1, sizeof(float))),
         d_filter_size(filter_size), d_step_factor(step_factor), d_filter_taps(filter_size, 0)
     {
+      set_history(filter_size);
     }
 
     /*
@@ -53,28 +54,19 @@ namespace gr {
     {
     }
 
-    void
-    eq_lms_ff_impl::forecast (int noutput_items, gr_vector_int &ninput_items_required)
-    {
-        /* <+forecast+> e.g. ninput_items_required[0] = noutput_items */
-    }
-
     int
-    eq_lms_ff_impl::general_work (int noutput_items,
-                                  gr_vector_int &ninput_items,
-                                  gr_vector_const_void_star &input_items,
-                                  gr_vector_void_star &output_items)
+    eq_lms_ff_impl::work(int noutput_items,
+                         gr_vector_const_void_star &input_items,
+                         gr_vector_void_star &output_items)
     {
       const float *x = (const float *) input_items[0];
       const float *dn = (const float *) input_items[1];
       float *y = (float *) output_items[0];
       
-      // Do <+signal processing+>
+      for (int i = 0; i < noutput_items; i++) {
+        y[i] = dn[i];
+      }
 
-      // Tell runtime system how many input items we consumed on
-      // each input stream.
-      consume_each(noutput_items);
-      
       // Tell runtime system how many output items we produced.
       return noutput_items;
     }
