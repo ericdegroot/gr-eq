@@ -23,3 +23,22 @@ GR_PYTHON_INSTALL(
     PROGRAMS
     DESTINATION bin
 )
+
+if(Boost_FOUND)
+
+include_directories(
+    ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_BINARY_DIR}/include
+    ${CMAKE_SOURCE_DIR}/lib
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_BINARY_DIR}
+    ${Boost_INCLUDE_DIRS}
+)
+
+add_executable(eq_lms_dump
+    ${CMAKE_CURRENT_SOURCE_DIR}/eq_lms_dump.cc
+)
+
+target_link_libraries(eq_lms_dump gnuradio-eq gnuradio-analog ${Boost_LIBRARIES})
+
+endif(Boost_FOUND)
