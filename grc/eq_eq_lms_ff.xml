@@ -4,7 +4,7 @@
   <key>eq_eq_lms_ff</key>
   <category>eq</category>
   <import>import eq</import>
-  <make>eq.eq_lms_ff($filter_size, $step_factor)</make>
+  <make>eq.eq_lms_ff($filter_size, $step_factor, False)</make>
   <param>
     <name>Filter size</name>
     <key>filter_size</key>

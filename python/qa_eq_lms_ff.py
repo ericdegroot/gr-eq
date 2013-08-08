@@ -67,7 +67,7 @@ class qa_eq_lms_ff (gr_unittest.TestCase):
 
         x_src = gr.vector_source_f(x, False)
         s_src = gr.vector_source_f(s, False)
-        eq_lms = eq.eq_lms_ff(M, mu)
+        eq_lms = eq.eq_lms_ff(M, mu, False)
         dst = gr.vector_sink_f()
 
         self.tb.connect((x_src, 0), (eq_lms, 0))

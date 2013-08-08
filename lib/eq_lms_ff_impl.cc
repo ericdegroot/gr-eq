@@ -22,7 +22,7 @@
 #include "config.h"
 #endif
 
-// #include <cstdio>
+#include <cstdio>
 
 #include <gr_io_signature.h>
 #include "eq_lms_ff_impl.h"
@@ -31,20 +31,21 @@ namespace gr {
   namespace eq {
 
     eq_lms_ff::sptr
-    eq_lms_ff::make(unsigned int filter_size, float step_factor)
+    eq_lms_ff::make(unsigned int filter_size, float step_factor, bool filter_taps_tagging)
     {
       return gnuradio::get_initial_sptr
-        (new eq_lms_ff_impl(filter_size, step_factor));
+        (new eq_lms_ff_impl(filter_size, step_factor, filter_taps_tagging));
     }
 
     /*
      * The private constructor
      */
-    eq_lms_ff_impl::eq_lms_ff_impl(unsigned int filter_size, float step_factor)
+    eq_lms_ff_impl::eq_lms_ff_impl(unsigned int filter_size, float step_factor, bool filter_taps_tagging)
       : gr_sync_block("eq_lms_ff",
                       gr_make_io_signature(2, 2, sizeof(float)),
                       gr_make_io_signature(1, 2, sizeof(float))),
-        d_filter_size(filter_size), d_step_factor(step_factor), d_filter_taps(filter_size, 0)
+        d_filter_size(filter_size), d_step_factor(step_factor), d_filter_taps(filter_size, 0),
+        d_filter_taps_tagging(filter_taps_tagging)
     {
       set_history(filter_size);
     }
@@ -99,8 +100,10 @@ namespace gr {
 
         // fprintf(stdout, "WORK: %f, %f, %f, %f, %f, %f\n", y[i], d_filter_taps[0], d_filter_taps[1], d_filter_taps[2], d_filter_taps[3]);
 
-        add_item_tag(0, nitems_written(0) + i, pmt::pmt_string_to_symbol("eq_lms_filter_taps"),
-                     pmt::pmt_init_f32vector(d_filter_size, d_filter_taps));
+        if (d_filter_taps_tagging) {
+          add_item_tag(0, nitems_written(0) + i, pmt::pmt_string_to_symbol(FILTER_TAPS_TAG_NAME),
+                       pmt::pmt_init_f32vector(d_filter_size, d_filter_taps));
+        }
       }
 
       // Tell runtime system how many output items we produced.

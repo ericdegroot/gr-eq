@@ -28,6 +28,8 @@
 namespace gr {
   namespace eq {
 
+    static const std::string FILTER_TAPS_TAG_NAME = "eq_lms_filter_taps";
+
     /*!
      * \brief <+description of block+>
      * \ingroup eq
@@ -46,7 +48,7 @@ namespace gr {
        * class. eq::eq_lms_ff::make is the public interface for
        * creating new instances.
        */
-      static sptr make(unsigned int filter_size, float step_factor);
+      static sptr make(unsigned int filter_size, float step_factor, bool filter_taps_tagging);
     };
 
   } // namespace eq

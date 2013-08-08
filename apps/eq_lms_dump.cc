@@ -38,11 +38,13 @@ private:
 
     for (int i = 0; i < noutput_items; i++) {
       std::string key = pmt::pmt_symbol_to_string(tags[i].key);
-      std::vector<float> filter_taps = pmt::pmt_f32vector_elements(tags[i].value);
+      if (key == gr::eq::FILTER_TAPS_TAG_NAME) {
+        std::vector<float> filter_taps = pmt::pmt_f32vector_elements(tags[i].value);
 
-      // fprintf(stderr, "%s, %c, %d, [ %f, %f, %f, %f ]\n", key.c_str(), pmt::pmt_is_f32vector(tags[i].value) ? 'T' : 'F', filter_taps.size(), filter_taps[0], filter_taps[1], filter_taps[2], filter_taps[3]);
+        // fprintf(stderr, "%s, %c, %d, [ %f, %f, %f, %f ]\n", key.c_str(), pmt::pmt_is_f32vector(tags[i].value) ? 'T' : 'F', filter_taps.size(), filter_taps[0], filter_taps[1], filter_taps[2], filter_taps[3]);
 
-      fprintf(stdout, "%f, %f, %f, %f, %f\n", y[i], filter_taps[0], filter_taps[1], filter_taps[2], filter_taps[3]);
+        fprintf(stdout, "%f, %f, %f, %f, %f\n", y[i], filter_taps[0], filter_taps[1], filter_taps[2], filter_taps[3]);
+      }
     }
 
     return noutput_items;
@@ -73,7 +75,7 @@ int main(int argc, char **argv)
 
   gr_add_ff_sptr add = gr_make_add_ff(1);
 
-  gr::eq::eq_lms_ff::sptr lms_eq = gr::eq::eq_lms_ff::make(M, mu);
+  gr::eq::eq_lms_ff::sptr lms_eq = gr::eq::eq_lms_ff::make(M, mu, true);
   eq_lms_dump_sink_sptr dump_sink = make_eq_lms_dump_sink();
 
   tb->connect(sig_source, 0, add, 0);
