@@ -30,9 +30,20 @@ private:
   int work(int noutput_items, gr_vector_const_void_star &input_items,
 	   gr_vector_void_star &output_items)
   {
-    const unsigned char *in = (const unsigned char *) input_items[0];
+    const float *y = (const float *) input_items[0];
+    // const float *e = (const float *) input_items[1];
 
-    // TODO: log data
+    std::vector<gr_tag_t> tags;
+    get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0) + noutput_items);
+
+    for (int i = 0; i < noutput_items; i++) {
+      std::string key = pmt::pmt_symbol_to_string(tags[i].key);
+      std::vector<float> filter_taps = pmt::pmt_f32vector_elements(tags[i].value);
+
+      // fprintf(stderr, "%s, %c, %d, [ %f, %f, %f, %f ]\n", key.c_str(), pmt::pmt_is_f32vector(tags[i].value) ? 'T' : 'F', filter_taps.size(), filter_taps[0], filter_taps[1], filter_taps[2], filter_taps[3]);
+
+      fprintf(stdout, "%f, %f, %f, %f, %f\n", y[i], filter_taps[0], filter_taps[1], filter_taps[2], filter_taps[3]);
+    }
 
     return noutput_items;
   }
