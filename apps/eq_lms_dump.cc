@@ -31,20 +31,21 @@ private:
 	   gr_vector_void_star &output_items)
   {
     const float *y = (const float *) input_items[0];
-    // const float *e = (const float *) input_items[1];
+    const float *e = (const float *) input_items[1];
 
-    std::vector<gr_tag_t> tags;
-    get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0) + noutput_items);
+    pmt::pmt_t filter_taps_key_symbol = pmt::pmt_string_to_symbol(gr::eq::FILTER_TAPS_TAG_NAME);
 
     for (int i = 0; i < noutput_items; i++) {
-      std::string key = pmt::pmt_symbol_to_string(tags[i].key);
-      if (key == gr::eq::FILTER_TAPS_TAG_NAME) {
-        std::vector<float> filter_taps = pmt::pmt_f32vector_elements(tags[i].value);
+      fprintf(stdout, "%f, %f", y[i], e[i]);
 
-        // fprintf(stderr, "%s, %c, %d, [ %f, %f, %f, %f ]\n", key.c_str(), pmt::pmt_is_f32vector(tags[i].value) ? 'T' : 'F', filter_taps.size(), filter_taps[0], filter_taps[1], filter_taps[2], filter_taps[3]);
-
-        fprintf(stdout, "%f, %f, %f, %f, %f\n", y[i], filter_taps[0], filter_taps[1], filter_taps[2], filter_taps[3]);
+      std::vector<gr_tag_t> tags;
+      get_tags_in_range(tags, 0, nitems_read(0) + i, nitems_read(0) + i + 1, filter_taps_key_symbol);
+      if (tags.size() > 0) {
+        std::vector<float> filter_taps = pmt::pmt_f32vector_elements(tags[0].value);
+        fprintf(stdout, ", %f, %f, %f, %f", filter_taps[0], filter_taps[1], filter_taps[2], filter_taps[3]);
       }
+
+      fprintf(stdout, "\n");
     }
 
     return noutput_items;
@@ -62,11 +63,11 @@ eq_lms_dump_sink_sptr make_eq_lms_dump_sink()
 
 int main(int argc, char **argv)
 {
-  double samp_rate = 1000;
-  double freq = 10;
+  const double samp_rate = 1000;
+  const double freq = 10;
 
-  unsigned int M = 4;
-  float mu = 0.02;
+  const unsigned int M = 4;
+  const float mu = 0.02;
 
   gr_top_block_sptr tb = gr_make_top_block("eq_lms_dump");
 
