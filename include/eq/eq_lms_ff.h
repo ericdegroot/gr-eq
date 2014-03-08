@@ -23,7 +23,7 @@
 #define INCLUDED_EQ_EQ_LMS_FF_H
 
 #include <eq/api.h>
-#include <gr_sync_block.h>
+#include <gnuradio/sync_block.h>
 
 namespace gr {
   namespace eq {
@@ -35,7 +35,7 @@ namespace gr {
      * \ingroup eq
      *
      */
-    class EQ_API eq_lms_ff : virtual public gr_sync_block
+    class EQ_API eq_lms_ff : virtual public gr::sync_block
     {
      public:
       typedef boost::shared_ptr<eq_lms_ff> sptr;

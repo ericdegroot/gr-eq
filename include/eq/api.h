@@ -22,7 +22,7 @@
 #ifndef INCLUDED_EQ_API_H
 #define INCLUDED_EQ_API_H
 
-#include <gruel/attributes.h>
+#include <gnuradio/attributes.h>
 
 #ifdef gnuradio_eq_EXPORTS
 #  define EQ_API __GR_ATTR_EXPORT

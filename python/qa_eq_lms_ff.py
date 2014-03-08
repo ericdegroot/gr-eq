@@ -1,6 +1,7 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # 
-# Copyright 2013 <+YOU OR YOUR COMPANY+>.
+# Copyright 2014 <+YOU OR YOUR COMPANY+>.
 # 
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +20,9 @@
 # 
 
 from gnuradio import gr, gr_unittest
+from gnuradio import blocks
 import eq_swig as eq
 
-# ctest -VV -R qa_eq_lms_ff
 class qa_eq_lms_ff (gr_unittest.TestCase):
 
     def setUp (self):
@@ -65,10 +66,10 @@ class qa_eq_lms_ff (gr_unittest.TestCase):
               0.2665137, 0.1899010, 0.0551109, -0.0944788, -0.2088661, -0.3248339, -0.4673856, -0.5688788,
               -0.6141125, -0.5422770, -0.4194642, -0.2149493 ]
 
-        x_src = gr.vector_source_f(x, False)
-        s_src = gr.vector_source_f(s, False)
+        x_src = blocks.vector_source_f(x, False)
+        s_src = blocks.vector_source_f(s, False)
         eq_lms = eq.eq_lms_ff(M, mu, False)
-        dst = gr.vector_sink_f()
+        dst = blocks.vector_sink_f()
 
         self.tb.connect((x_src, 0), (eq_lms, 0))
         self.tb.connect((s_src, 0), (eq_lms, 1))

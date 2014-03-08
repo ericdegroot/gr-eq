@@ -1,4 +1,5 @@
-# Copyright 2011 Free Software Foundation, Inc.
+#
+# Copyright 2004 Free Software Foundation, Inc.
 #
 # This file is part of GNU Radio
 #
@@ -16,29 +17,36 @@
 # along with GNU Radio; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
+#
 
-include(GrPython)
+def i_code (code3):
+    return code3[0]
 
-GR_PYTHON_INSTALL(
-    PROGRAMS
-    DESTINATION bin
-)
+def o_code (code3):
+    if len (code3) >= 2:
+        return code3[1]
+    else:
+        return code3[0]
 
-if(Boost_FOUND)
+def tap_code (code3):
+    if len (code3) >= 3:
+        return code3[2]
+    else:
+        return code3[0]
 
-include_directories(
-    ${CMAKE_SOURCE_DIR}/include
-    ${CMAKE_BINARY_DIR}/include
-    ${CMAKE_SOURCE_DIR}/lib
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_BINARY_DIR}
-    ${Boost_INCLUDE_DIRS}
-)
+def i_type (code3):
+    return char_to_type[i_code (code3)]
 
-add_executable(eq_lms_dump
-    ${CMAKE_CURRENT_SOURCE_DIR}/eq_lms_dump.cc
-)
+def o_type (code3):
+    return char_to_type[o_code (code3)]
 
-target_link_libraries(eq_lms_dump gnuradio-eq gnuradio-blocks gnuradio-pmt gnuradio-analog ${Boost_LIBRARIES})
+def tap_type (code3):
+    return char_to_type[tap_code (code3)]
 
-endif(Boost_FOUND)
+
+char_to_type = {}
+char_to_type['s'] = 'short'
+char_to_type['i'] = 'int'
+char_to_type['f'] = 'float'
+char_to_type['c'] = 'gr_complex'
+char_to_type['b'] = 'unsigned char'

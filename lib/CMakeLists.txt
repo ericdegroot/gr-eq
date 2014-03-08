@@ -29,9 +29,21 @@ list(APPEND eq_sources
     eq_lms_ff_impl.cc
 )
 
+set(eq_sources "${eq_sources}" PARENT_SCOPE)
+if(NOT eq_sources)
+	MESSAGE(STATUS "No C++ sources... skipping lib/")
+	return()
+endif(NOT eq_sources)
+
 add_library(gnuradio-eq SHARED ${eq_sources})
-target_link_libraries(gnuradio-eq ${Boost_LIBRARIES} ${GRUEL_LIBRARIES} ${GNURADIO_CORE_LIBRARIES})
+target_link_libraries(gnuradio-eq ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES})
 set_target_properties(gnuradio-eq PROPERTIES DEFINE_SYMBOL "gnuradio_eq_EXPORTS")
+
+if(APPLE)
+    set_target_properties(gnuradio-eq PROPERTIES
+        INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib"
+    )
+endif(APPLE)
 
 ########################################################################
 # Install built library files
@@ -58,7 +70,7 @@ add_executable(test-eq ${test_eq_sources})
 
 target_link_libraries(
   test-eq
-  ${GNURADIO_CORE_LIBRARIES}
+  ${GNURADIO_RUNTIME_LIBRARIES}
   ${Boost_LIBRARIES}
   ${CPPUNIT_LIBRARIES}
   gnuradio-eq

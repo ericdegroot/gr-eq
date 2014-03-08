@@ -24,7 +24,7 @@
 
 // #include <cstdio>
 
-#include <gr_io_signature.h>
+#include <gnuradio/io_signature.h>
 #include "eq_lms_ff_impl.h"
 
 namespace gr {
@@ -41,9 +41,9 @@ namespace gr {
      * The private constructor
      */
     eq_lms_ff_impl::eq_lms_ff_impl(unsigned int filter_size, float step_factor, bool filter_taps_tagging)
-      : gr_sync_block("eq_lms_ff",
-                      gr_make_io_signature(2, 2, sizeof(float)),
-                      gr_make_io_signature(1, 2, sizeof(float))),
+      : gr::sync_block("eq_lms_ff",
+                       gr::io_signature::make(2, 2, sizeof(float)),
+                       gr::io_signature::make(1, 2, sizeof(float))),
         d_filter_size(filter_size), d_step_factor(step_factor), d_filter_taps(filter_size, 0),
         d_filter_taps_tagging(filter_taps_tagging)
     {
@@ -86,8 +86,8 @@ namespace gr {
         }
 
         if (d_filter_taps_tagging) {
-          add_item_tag(0, nitems_written(0) + i, pmt::pmt_string_to_symbol(FILTER_TAPS_TAG_NAME),
-                       pmt::pmt_init_f32vector(d_filter_size, d_filter_taps));
+          add_item_tag(0, nitems_written(0) + i, pmt::string_to_symbol(FILTER_TAPS_TAG_NAME),
+                       pmt::init_f32vector(d_filter_size, d_filter_taps));
         }
       }
 
