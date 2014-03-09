@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Wed Aug  7 14:07:14 2013</timestamp>
+  <timestamp>Sat Mar  8 16:59:27 2014</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -64,29 +64,6 @@
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>mu</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>0.02</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(508, 94)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
       <value>samp_rate</value>
     </param>
     <param>
@@ -99,7 +76,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(10, 170)</value>
+      <value>(13, 170)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -107,34 +84,22 @@
     </param>
   </block>
   <block>
-    <key>analog_noise_source_x</key>
+    <key>variable</key>
     <param>
       <key>id</key>
-      <value>analog_noise_source_x_0</value>
+      <value>mu</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>type</key>
-      <value>float</value>
-    </param>
-    <param>
-      <key>noise_type</key>
-      <value>analog.GR_GAUSSIAN</value>
-    </param>
-    <param>
-      <key>amp</key>
-      <value>0.1</value>
-    </param>
-    <param>
-      <key>seed</key>
-      <value>0</value>
+      <key>value</key>
+      <value>.02</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(166, 186)</value>
+      <value>(519, 22)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -157,7 +122,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(416, 90)</value>
+      <value>(423, 22)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -187,8 +152,20 @@
       <value>1</value>
     </param>
     <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
       <key>_coordinate</key>
-      <value>(424, 187)</value>
+      <value>(504, 133)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -196,42 +173,38 @@
     </param>
   </block>
   <block>
-    <key>analog_sig_source_x</key>
+    <key>eq_eq_lms_ff</key>
     <param>
       <key>id</key>
-      <value>analog_sig_source_x_0</value>
+      <value>eq_eq_lms_ff_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>type</key>
-      <value>float</value>
+      <key>filter_size</key>
+      <value>M</value>
     </param>
     <param>
-      <key>samp_rate</key>
-      <value>samp_rate</value>
+      <key>step_factor</key>
+      <value>mu</value>
     </param>
     <param>
-      <key>waveform</key>
-      <value>analog.GR_SIN_WAVE</value>
+      <key>affinity</key>
+      <value></value>
     </param>
     <param>
-      <key>freq</key>
-      <value>10</value>
+      <key>minoutbuf</key>
+      <value>0</value>
     </param>
     <param>
-      <key>amp</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>offset</key>
+      <key>maxoutbuf</key>
       <value>0</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(124, 349)</value>
+      <value>(544, 258)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -298,42 +271,19 @@
     </param>
     <param>
       <key>trig_mode</key>
-      <value>gr.gr_TRIG_MODE_AUTO</value>
+      <value>wxgui.TRIG_MODE_AUTO</value>
     </param>
     <param>
       <key>y_axis_label</key>
       <value>Counts</value>
     </param>
     <param>
-      <key>_coordinate</key>
-      <value>(796, 360)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>eq_eq_lms_ff</key>
-    <param>
-      <key>id</key>
-      <value>eq_eq_lms_ff_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>filter_size</key>
-      <value>M</value>
-    </param>
-    <param>
-      <key>step_factor</key>
-      <value>mu</value>
+      <key>affinity</key>
+      <value></value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(443, 311)</value>
+      <value>(948, 289)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -400,15 +350,121 @@
     </param>
     <param>
       <key>trig_mode</key>
-      <value>gr.gr_TRIG_MODE_AUTO</value>
+      <value>wxgui.TRIG_MODE_AUTO</value>
     </param>
     <param>
       <key>y_axis_label</key>
       <value>Counts</value>
     </param>
     <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
       <key>_coordinate</key>
-      <value>(642, 497)</value>
+      <value>(762, 394)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>analog_sig_source_x</key>
+    <param>
+      <key>id</key>
+      <value>analog_sig_source_x_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>float</value>
+    </param>
+    <param>
+      <key>samp_rate</key>
+      <value>samp_rate</value>
+    </param>
+    <param>
+      <key>waveform</key>
+      <value>analog.GR_SIN_WAVE</value>
+    </param>
+    <param>
+      <key>freq</key>
+      <value>10</value>
+    </param>
+    <param>
+      <key>amp</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>offset</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(260, 321)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>analog_noise_source_x</key>
+    <param>
+      <key>id</key>
+      <value>analog_noise_source_x_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>float</value>
+    </param>
+    <param>
+      <key>noise_type</key>
+      <value>analog.GR_GAUSSIAN</value>
+    </param>
+    <param>
+      <key>amp</key>
+      <value>0.1</value>
+    </param>
+    <param>
+      <key>seed</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(242, 115)</value>
     </param>
     <param>
       <key>_rotation</key>
